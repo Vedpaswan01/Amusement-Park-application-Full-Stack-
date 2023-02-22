@@ -3,6 +3,7 @@ package com.FunXtreme.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer extends AbstractUser {
+public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +31,10 @@ public class Customer extends AbstractUser {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
 	private List<Ticket> tickets;
+	
+	
+	@Embedded
+	private AbstractUser abstractUser;
 
 	
 }
