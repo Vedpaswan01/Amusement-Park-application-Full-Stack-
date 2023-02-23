@@ -9,10 +9,11 @@ import com.FunXtreme.repository.CustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-	
+
 	@Autowired
-	CustomerRepository customerRepo;
-	
+	private CustomerRepository customerRepo;
+
+
 	@Override
 	public Customer registerCustomer(Customer customer) {
 		return customerRepo.save(customer); 
@@ -28,5 +29,6 @@ public class CustomerServiceImpl implements CustomerService {
 		customerRepo.delete(cus);
 		return "Deletion done successfully.";
 	}
+	
 
 }
