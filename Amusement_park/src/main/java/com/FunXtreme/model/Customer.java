@@ -19,22 +19,21 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer customerID;
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-	private List<Ticket> tickets;
-	
 	
 	@Embedded
 	private AbstractUser abstractUser;
-
 	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+	private List<Ticket> tickets;
+
 }
