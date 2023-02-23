@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FunXtreme.exception.CustomerException;
 import com.FunXtreme.model.Customer;
-import com.FunXtreme.services.ActivityService;
 import com.FunXtreme.services.CustomerService;
 
 //import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -28,16 +28,16 @@ public class CustomerController {
 	private CustomerService customerService;
 
 
-	
+	public static boolean isLoggedin = false;
 	
 	@PostMapping("/registerCustomer")
-	public ResponseEntity<Customer> registerCustomer(@Valid @RequestBody Customer customer) {
+	public ResponseEntity<Customer> registerCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
 		return new ResponseEntity<>(customerService.registerCustomer(customer), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updateCustomerById/{id}")
-	public ResponseEntity<Customer> updateCustomer(@Valid @PathVariable("id") Integer id, @RequestBody Customer customer) throws CustomerException {
-		return new ResponseEntity<>(customerService.updateCustomer(id, customer), HttpStatus.OK);
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer, @RequestParam(required = false) String key) throws CustomerException {
+		return new ResponseEntity<>(customerService.updateCustomer(customer, key), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deleteCustomerById/{id}")

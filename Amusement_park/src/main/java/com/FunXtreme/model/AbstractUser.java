@@ -20,7 +20,7 @@ import lombok.Setter;
 public class AbstractUser {
 	
 	@NotNull
-	@Size(min = 4, max = 12, message = "Password should has minimum 4 to 12 characters")
+	@Size(min = 4, max = 12, message = "Username should has minimum 4 to 12 characters")
 	private String username;
 	@Size(min = 4, max = 12, message = "Password should has minimum 4 to 12 characters")
 	private String password;
