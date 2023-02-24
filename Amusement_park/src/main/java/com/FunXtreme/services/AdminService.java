@@ -14,22 +14,22 @@ import com.FunXtreme.model.Customer;
 
 public interface AdminService {
 	
-	public Admin insertAdmin(Admin admin);
+	public Admin insertAdmin(Admin admin) throws LoginException;
 	
 	public Admin updateAdmin(Admin admin) throws AdminException, LoginException;
 
-	public Admin deleteAdmin(Integer adminId) throws AdminException;
+	public Admin deleteAdmin(Integer adminId) throws AdminException, LoginException;
 
-	public List<Activity> getAllActivitiesByCustomerID(Integer cutomerId) throws ActivityException,CustomerException;
+	public List<Activity> getAllActivitiesByCustomerID(Integer cutomerId) throws ActivityException,CustomerException, LoginException;
 
-	public List<Activity> getAllActivities() throws ActivityException;
+	public List<Activity> getAllActivities() throws ActivityException, LoginException;
 
-	public List<Activity> getActivitiesDatewise(LocalDateTime date) throws ActivityException;
+	public List<Activity> getActivitiesDatewise(LocalDateTime date) throws ActivityException, LoginException;
 
 	public List<Activity> getActivitiesForDays(Integer customerId, LocalDateTime fromdate, LocalDateTime toDate)
-			throws ActivityException;
-	public List<Customer> getAllCustomer() throws CustomerException;
+			throws ActivityException, LoginException;
+	public List<Customer> getAllCustomer() throws CustomerException, LoginException;
 
-	public List<Activity> getAllActivity() throws ActivityException;
+	public List<Activity> getAllActivity() throws ActivityException, LoginException;
 
 }

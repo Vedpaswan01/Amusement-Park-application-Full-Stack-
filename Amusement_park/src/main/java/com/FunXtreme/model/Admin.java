@@ -32,8 +32,17 @@ public class Admin  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer adminID;
 
-	@Embedded
-	private AbstractUser user;
+	@NotNull
+	@Size(min = 4, max = 12, message = "Username must have minimum 4 to 12 characters")
+	private String username;
+	@Size(min = 4, max = 12, message = "Password must have minimum 4 to 12 characters")
+	private String password;
+	@NotNull
+	private String address;
+	@Size(min = 10, message = "Mobile Number must have 10 digits!")
+	private String mobileNumber;
+	@Email
+	private String email;
 	
 	
 	
