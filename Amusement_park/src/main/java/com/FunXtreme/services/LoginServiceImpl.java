@@ -18,91 +18,92 @@ import com.FunXtreme.repository.CustomerRepository;
 import com.FunXtreme.repository.SessionDAO;
 
 import net.bytebuddy.utility.RandomString;
+
 @Service
 public class LoginServiceImpl implements LoginService {
+
+	@Autowired
+	private AdminRepository adminDao;
+
+	@Autowired
+	private CustomerRepository cDao;
 	
 	@Autowired
-	private CustomerRepository customerRepo;
+	private AdminSessionDAO aSessionDao;
 	
 	@Autowired
-	private SessionDAO sessionDAO;
-	
-	@Autowired
-	private AdminRepository adminRepo;
-	
-	@Autowired 
-	private AdminSessionDAO adminSessionDAO;
+	private SessionDAO sDao;
 	
 	public static Admin admin;
 	
 	public static Customer customer;
-
+	
 	@Override
-	public String customerLogIntoAccount(LoginDTO logdto) throws LoginException {
-		Customer existingCustomer = customerRepo.findByEmail(logdto.getEmail());
-		if(existingCustomer == null)
-			throw new LoginException("Invalid email");
-			
-		Optional<CurrentUserSession> validCustomerSessionOpt =  sessionDAO.findById(existingCustomer.getCustomerID());
-		
-		if(validCustomerSessionOpt.isPresent()) {
-			
-			throw new LoginException("User already Logged In with this number");
-			
+	public String logIntoAccount(LoginDTO dto) throws LoginException {
+		Customer existingCustomer = cDao.findByEmail(dto.getEmail());
+
+		if (existingCustomer == null) {
+			throw new LoginException("Please Enter a valid email or password");
 		}
-		
-		if(existingCustomer.getPassword().equals(logdto.getPassword())) {
-			
-			String key= RandomString.make(6);
-			
-			CurrentUserSession currentUserSession = new CurrentUserSession(existingCustomer.getCustomerID(),key,LocalDateTime.now());
-			
-			sessionDAO.save(currentUserSession);
+
+		Optional<CurrentUserSession> validCustomerSessionOpt = sDao.findById(existingCustomer.getCustomerID());
+
+		if (validCustomerSessionOpt.isPresent()) {
+			throw new LoginException("User already Logged In with this number");
+		}
+
+		if (existingCustomer.getPassword().equals(dto.getPassword())) {
+			String key = RandomString.make(6);
+			CurrentUserSession currentUserSession = new CurrentUserSession(existingCustomer.getCustomerID(), key,
+					LocalDateTime.now());
+			sDao.save(currentUserSession);
 			
 			customer = existingCustomer;
-
+			
 			return currentUserSession.toString();
-		}
-		else
-			throw new LoginException("Please Enter a valid password");
 
+		} else
+			throw new LoginException("Please Enter a valid password");
 	}
 
 	@Override
-	public String customerLogOutOfAccount(String key) throws LoginException {
-		CurrentUserSession validCustomerSession = sessionDAO.findByUuid(key);
+	public String logOutFromAccount(String key) throws LoginException {
+
+		CurrentUserSession validCustomerSession = sDao.findByUuid(key);
 
 		if (validCustomerSession == null) {
 			throw new LoginException("User Not Logged In with this number");
 
 		}
 
-		sessionDAO.delete(validCustomerSession);
+		sDao.delete(validCustomerSession);
 		
 		customer = null;
-				
+		
 		return "Logged Out !";
+
 	}
 
 	@Override
-	public String adminLogin(LoginDTO dto) throws LoginException {
-		Admin existingAdmin = adminRepo.findByEmail(dto.getEmail());
+	public String adminLogIntoAccount(LoginDTO dto) throws LoginException {
+		
+		Admin existingAdmin = adminDao.findByEmail(dto.getEmail());
 
 		if (existingAdmin == null) {
-			throw new LoginException("Please Enter a valid email.");
+			throw new LoginException("Please Enter a valid email or password");
 		}
 
-		Optional<CurrentAdminSession> validAdminSessionOpt = adminSessionDAO.findById(existingAdmin.getAdminID());
+		Optional<CurrentAdminSession> validAdminSessionOpt = aSessionDao.findById(existingAdmin.getAdminID());
 
 		if (validAdminSessionOpt.isPresent()) {
-			throw new LoginException("User already Logged In with this email");
+			throw new LoginException("User already Logged In with this number");
 		}
 
 		if (existingAdmin.getPassword().equals(dto.getPassword())) {
 			String key = RandomString.make(6);
 			CurrentAdminSession currentAdminSession = new CurrentAdminSession(existingAdmin.getAdminID(), key,
 					LocalDateTime.now());
-			adminSessionDAO.save(currentAdminSession);
+			aSessionDao.save(currentAdminSession);
 			
 			admin = existingAdmin;
 			
@@ -110,11 +111,13 @@ public class LoginServiceImpl implements LoginService {
 
 		} else
 			throw new LoginException("Please Enter a valid password");
+
 	}
 
 	@Override
-	public String adminLogout(String key) throws LoginException {
-		CurrentAdminSession validAdminSession = adminSessionDAO.findByUuid(key);
+	public String adminLogOutFromAccount(String key) throws LoginException {
+		
+		CurrentAdminSession validAdminSession = aSessionDao.findByUuid(key);
 
 		if (validAdminSession == null) {
 			
@@ -122,7 +125,7 @@ public class LoginServiceImpl implements LoginService {
 
 		}
 
-		adminSessionDAO.delete(validAdminSession);
+		aSessionDao.delete(validAdminSession);
 		
 		admin = null;
 		

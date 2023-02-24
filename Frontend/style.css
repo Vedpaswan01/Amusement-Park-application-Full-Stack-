@@ -1,0 +1,131 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+
+body{
+
+    width: 100%;
+  height: auto;
+
+  background-image: url(Assets/wp2327035-amusement-park-wallpapers.jpg);
+
+  
+  background-size: 110%;
+}
+
+:root {
+    --clr-neutral-100: hsl(0 0% 100%);
+}
+
+/* Navigation Bar */
+
+#logo {
+    width: 15em;
+}
+
+#main__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3em;
+}
+
+#nav__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.nav__item {
+    padding: 1em;
+    color: black;
+    border-radius: 5px;
+}
+
+.nav__item:hover {
+    background-color: rgb(127,255,212);
+}
+
+.nav__item a {
+    text-decoration: none;
+   color: black;
+}
+
+
+/* Headline */
+#word__moto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 5em 0;
+    font-size: 1em;
+}
+
+
+/* Hero section */
+
+.item__img {
+    width: 20em;
+}
+
+#container__login--option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3em;
+}
+
+
+.item__login--option {
+    /* border: 1px solid red; */
+    padding: 2em;
+    border-radius: 5px;
+}
+
+
+/* .item__login--option:hover {
+    background: #edfefe;
+} */
+
+/* Button */
+
+.btn--container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    padding: 2em 0;
+}
+.btn {
+    font-size: 1em;
+    border-radius: 5px;
+    padding: .8em 1em;
+    cursor: pointer;
+    border: none;
+    background-color: aquamarine;
+}
+
+
+.btn:hover {
+    background-color: rgb(112, 224, 187);
+}
+
+.btn a {
+    text-decoration: none;
+    color: black;
+}
+
+#userImage img{
+
+    /* border: 1px solid red; */
+    width: 200px;
+    height: 200px;
+    margin-left: 10%;
+}
+
+
