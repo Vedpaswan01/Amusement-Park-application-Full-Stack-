@@ -37,12 +37,20 @@ public class CustomerController {
 	
 	@PutMapping("/updateCustomerById/{id}")
 	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer, @RequestParam(required = false) String key) throws CustomerException {
-		return new ResponseEntity<>(customerService.updateCustomer(customer, key), HttpStatus.OK);
+		if (isLoggedin) {
+			Customer updatedCustomer = customerService.updateCustomer(customer, key);
+
+			return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+
+		} else {
+
+			throw new CustomerException("Please Login First");
+		}
 	}
 	
 	@DeleteMapping("/deleteCustomerById/{id}")
-	public ResponseEntity<String> deleteCustomer(@Valid @PathVariable("id") Integer id) throws CustomerException {
-		return new ResponseEntity<>(customerService.deleteCustomer(id), HttpStatus.OK);
+	public ResponseEntity<String> deleteCustomer(@Valid @PathVariable("id") Integer id, @RequestParam(required = false) String key) throws CustomerException {
+		return new ResponseEntity<>(customerService.deleteCustomer(id, key), HttpStatus.OK);
 	}
 
 

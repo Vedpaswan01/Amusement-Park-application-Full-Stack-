@@ -35,10 +35,10 @@ public class AdminController {
 	@Autowired
 	private CustomerService customerService;
 
-	
+	public static boolean isLoggedin = false;
 
 	@PostMapping("/registerAdmin")
-	public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) throws AdminException {
+	public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) throws AdminException, LoginException {
 
 		Admin c = adminService.insertAdmin(admin);
 
@@ -54,22 +54,21 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/deleteadmin/{id}")
-	public ResponseEntity<Admin> deleteAdminHandler(@PathVariable("id") Integer id) throws AdminException {
-
+	public ResponseEntity<Admin> deleteAdminHandler(@PathVariable("id") Integer id) throws AdminException, LoginException {
 		Admin ad = adminService.deleteAdmin(id);
 		return new ResponseEntity<Admin>(ad, HttpStatus.OK);
 	}
 
 	@GetMapping("/getAllactivitybycustomerid/{id}")
 	public ResponseEntity<List<Activity>> getAllActivityByCustomerIdHandler(@PathVariable("id") Integer id)
-			throws ActivityException, CustomerException {
+			throws ActivityException, CustomerException, LoginException {
 
 		List<Activity> activities = adminService.getAllActivitiesByCustomerID(id);
 		return new ResponseEntity<List<Activity>>(activities, HttpStatus.OK);
 	}
 
 	@GetMapping("/getallactivity")
-	public ResponseEntity<List<Activity>> getAllActivityHandler() throws ActivityException {
+	public ResponseEntity<List<Activity>> getAllActivityHandler() throws ActivityException, LoginException {
 
 		List<Activity> activities = adminService.getAllActivities();
 		return new ResponseEntity<List<Activity>>(activities, HttpStatus.OK);
@@ -77,7 +76,7 @@ public class AdminController {
 
 	@GetMapping("/getactivitybydate/{date}")
 	public ResponseEntity<List<Activity>> getAllActivityByDateHandler(@PathVariable("date") String date)
-			throws ActivityException {
+			throws ActivityException, LoginException {
 
 		String dateString = date;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
@@ -91,7 +90,7 @@ public class AdminController {
 	@GetMapping("/getActivitybyDateAndCustomerid/{cid}/{from_date}/{to_date}")
 	public ResponseEntity<List<Activity>> getAllActivityByDateandcustomeridHandler(
 			@PathVariable("cid") Integer customerId, @PathVariable("from_date") String from_date,
-			@PathVariable("to_date") String to_date) throws ActivityException {
+			@PathVariable("to_date") String to_date) throws ActivityException, LoginException {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
 		LocalDateTime fromDate = LocalDateTime.parse(to_date, formatter);
@@ -103,7 +102,7 @@ public class AdminController {
 	}
 
 	@GetMapping("/allCustomer")
-	public ResponseEntity<Object> getAllCustomer() throws CustomerException {
+	public ResponseEntity<Object> getAllCustomer() throws CustomerException, LoginException {
 
 		List<Customer> customerList = adminService.getAllCustomer();
 		return new ResponseEntity<>(customerList, HttpStatus.OK);

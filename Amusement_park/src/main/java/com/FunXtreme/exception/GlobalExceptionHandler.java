@@ -16,7 +16,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorDetails> inputValidationHandler(MethodArgumentNotValidException ms, WebRequest req) {
-		return new ResponseEntity<>(new ErrorDetails(LocalDateTime.now(), ms.getMessage(), req.getDescription(false)), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ErrorDetails(LocalDateTime.now(), "Validation Error", ms.getBindingResult().getFieldError().getDefaultMessage()), HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(AdminException.class)
@@ -36,6 +36,11 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(ActivityException.class)
 	public ResponseEntity<ErrorDetails> ActivityExceptionHandler(ActivityException ms, WebRequest req) {
+		return new ResponseEntity<>(new ErrorDetails(LocalDateTime.now(), ms.getMessage(), req.getDescription(false)), HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<ErrorDetails> LoginExceptionHandler(LoginException ms, WebRequest req) {
 		return new ResponseEntity<>(new ErrorDetails(LocalDateTime.now(), ms.getMessage(), req.getDescription(false)), HttpStatus.BAD_REQUEST);
 	}
 	

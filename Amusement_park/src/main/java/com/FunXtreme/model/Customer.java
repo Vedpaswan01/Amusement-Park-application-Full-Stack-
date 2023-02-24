@@ -9,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,8 +32,17 @@ public class Customer {
 	private Integer customerID;
 
 	
-	@Embedded
-	private AbstractUser abstractUser;
+	@NotNull
+	@Size(min = 4, max = 12, message = "Username should has minimum 4 to 12 characters")
+	private String username;
+	@Size(min = 4, max = 12, message = "Password should has minimum 4 to 12 characters")
+	private String password;
+	@NotNull
+	private String address;
+	@Size(min = 10, message = "Mobile Number should be of 10 digits!")
+	private String mobileNumber;
+	@Email
+	private String email;
 	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")

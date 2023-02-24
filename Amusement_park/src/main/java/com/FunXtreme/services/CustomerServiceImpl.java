@@ -29,7 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public Customer registerCustomer(Customer customer) throws CustomerException {
-		Customer cus = customerRepo.findByEmail(customer.getAbstractUser().getEmail());
+		Customer cus = customerRepo.findByEmail(customer.getEmail());
 		if(cus != null) {
 			throw new CustomerException("Customer with this email has already been registered. Please use a different email ID.");
 		}
@@ -49,18 +49,19 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new CustomerException("Invalid Customer Details, please login first");
 	}
 	@Override
-	public String deleteCustomer(Integer customerID) throws CustomerException {
-		CurrentUserSession userSession = sessionDAO.findById(customerID)
-				.orElseThrow(() -> new CustomerException("Customer not fount with this Id"));
+	public String deleteCustomer(Integer customerID, String key) throws CustomerException {
+		CurrentUserSession userSession = sessionDAO.findByUuid(key);
+
+		if (userSession == null) {
+			throw new CustomerException("Please provide a valid key delete customer");
+		}
 		Customer customer = customerRepo.findById(customerID)
-				.orElseThrow(() -> new CustomerException("Cucstomer not found with thiss id"));
-		if (userSession != null) {
+				.orElseThrow(() -> new CustomerException("Cucstomer not found with this Id"));
 			sessionDAO.delete(userSession);
 			customerRepo.delete(customer);
 
 			return "Deletion successful.";
-		}
-		throw new CustomerException("Deletion unsuccessful.");
+		
 	}
 	@Override
 	public List<Activity> getAllActivities() throws ActivityException {

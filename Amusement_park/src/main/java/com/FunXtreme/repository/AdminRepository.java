@@ -6,5 +6,6 @@ import com.FunXtreme.model.Admin;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	
+	public Admin findByEmail(String email);
 
 }
