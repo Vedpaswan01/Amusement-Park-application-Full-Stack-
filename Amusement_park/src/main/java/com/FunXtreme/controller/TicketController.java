@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.FunXtreme.exception.ActivityException;
 import com.FunXtreme.exception.CustomerException;
+import com.FunXtreme.exception.LoginException;
 import com.FunXtreme.exception.TicketException;
 import com.FunXtreme.model.Ticket;
+import com.FunXtreme.model.TripBookingDTO;
 import com.FunXtreme.services.TicketService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -26,9 +28,11 @@ public class TicketController {
 	@Autowired
 	private TicketService ticketService;
 	
+	static boolean isLogin = false;
+	
 	@PostMapping("/ticketBooking/{activity_id}")
 	public ResponseEntity<Ticket> bookticket(@RequestBody Ticket tick, @PathVariable Integer activity_id)
-			throws ActivityException, TicketException {
+			throws ActivityException, TicketException,LoginException {
 
 		Ticket ticket = ticketService.ticketBooking(tick, activity_id);
 
@@ -37,7 +41,7 @@ public class TicketController {
 	
 	@PutMapping("/ticketBooking/updateTicket/{ticket_id}/{activity_id}")
 	public ResponseEntity<Ticket> updateTicketHandler(@PathVariable Integer ticket_id,
-			@PathVariable Integer activity_id) throws TicketException, ActivityException {
+			@PathVariable Integer activity_id) throws TicketException, ActivityException,LoginException {
 
 		Ticket ticket = ticketService.updateTicketBooking(ticket_id, activity_id);
 
@@ -46,7 +50,7 @@ public class TicketController {
 	
 	@DeleteMapping("/ticketBooking/deleteTicket/{ticket_id}")
 	public ResponseEntity<Ticket> deleteTicketHandler(@PathVariable Integer ticket_id)
-			throws TicketException {
+			throws TicketException,LoginException{
 
 		Ticket ticket = ticketService.deleteTicketBooking(ticket_id);
 
@@ -54,10 +58,20 @@ public class TicketController {
 	}
 
 	@GetMapping("/getAllTickets")
-	public ResponseEntity<List<Ticket>> getTicketsHandler()throws TicketException, CustomerException {
+	public ResponseEntity<List<Ticket>> getTicketsHandler()throws TicketException,LoginException, CustomerException {
 
 		List<Ticket> tickets = ticketService.viewAllTicketCustomer();
 
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
+	
+	@GetMapping("/calculateBill/{customer_id}")
+	public ResponseEntity<TripBookingDTO> getBillHandler()throws LoginException, TicketException, CustomerException {
+
+		TripBookingDTO tripDto = ticketService.calculateBill();
+
+		return new ResponseEntity<>(tripDto, HttpStatus.OK);
+
+	}
+
 }

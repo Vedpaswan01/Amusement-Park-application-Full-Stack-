@@ -3,21 +3,20 @@ package com.FunXtreme.services;
 import java.util.List;
 import java.util.Optional;
 
-import javax.security.auth.login.LoginException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.FunXtreme.controller.CustomerController;
 import com.FunXtreme.exception.ActivityException;
 import com.FunXtreme.exception.CustomerException;
+import com.FunXtreme.exception.LoginException;
 import com.FunXtreme.exception.TicketException;
 import com.FunXtreme.model.Activity;
 import com.FunXtreme.model.Ticket;
+import com.FunXtreme.model.TripBookingDTO;
 import com.FunXtreme.repository.ActivityRepository;
 import com.FunXtreme.repository.CustomerRepository;
 import com.FunXtreme.repository.TicketRepository;
-
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -32,18 +31,23 @@ public class TicketServiceImpl implements TicketService {
 	CustomerRepository customerRepo;
 	
 	@Override
-	public Ticket ticketBooking(Ticket ticket, Integer activity_id) throws ActivityException, TicketException {
+	public Ticket ticketBooking(Ticket ticket, Integer activity_id) throws ActivityException, TicketException , LoginException {
 		// TODO Auto-generated method stub
+		
+		if (!CustomerController.isLoggedin) {
+			throw new LoginException("Please Login first !!!");
+		}
 		
 		Optional<Activity> optionalactivity = activityRepo.findById(activity_id);
 
 		if (optionalactivity.isPresent()) {
 
+			ticket.setCustomer(LoginServiceImpl.customer);
 			ticket.setActivity(optionalactivity.get());
 
-			Ticket tic = ticketRepo.save(ticket);
+			Ticket tick = ticketRepo.save(ticket);
 
-			return tic;
+			return tick;
 
 		} else {
 
@@ -54,8 +58,12 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	public Ticket updateTicketBooking(Integer ticket_id, Integer activity_id)
-			throws ActivityException, TicketException {
+			throws ActivityException, TicketException,LoginException {
 		// TODO Auto-generated method stub
+		
+		if (!CustomerController.isLoggedin) {
+			throw new LoginException("Please Login first !!!");
+		}
 		
 		Optional<Ticket> optionalTicket = ticketRepo.findById(ticket_id);
 
@@ -82,8 +90,13 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public Ticket deleteTicketBooking(Integer ticketId) throws TicketException {
+	public Ticket deleteTicketBooking(Integer ticketId) 
+			throws TicketException,LoginException {
 		// TODO Auto-generated method stub
+		
+		if (!CustomerController.isLoggedin) {
+			throw new LoginException("Please Login first !!!");
+		}
 		
 		Optional<Ticket> optionalTicket = ticketRepo.findById(ticketId);
 
@@ -100,10 +113,15 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public List<Ticket> viewAllTicketCustomer() throws TicketException, CustomerException {
+	public List<Ticket> viewAllTicketCustomer()
+			throws TicketException, CustomerException,LoginException {
 		// TODO Auto-generated method stub
 	
-		List<Ticket> tickets = ticketRepo.getAllTicketsByCustomerId(null);
+		if (!CustomerController.isLoggedin) {
+			throw new LoginException("Please Login first !!!");
+		}
+		
+		List<Ticket> tickets = ticketRepo.getAllTicketsByCustomerId(LoginServiceImpl.customer.getCustomerID());
 
 		if (tickets.isEmpty()) {
 			throw new TicketException("Tickets is Empty");
@@ -111,4 +129,33 @@ public class TicketServiceImpl implements TicketService {
 			return tickets;
 		}
 	}
+
+	@Override
+	public TripBookingDTO calculateBill()
+			throws TicketException,LoginException, CustomerException {
+		// TODO Auto-generated method stub
+		
+		if (!CustomerController.isLoggedin) {
+			throw new LoginException("Please Login first !!!");
+		}
+
+		TripBookingDTO tripDto = new TripBookingDTO();
+
+		tripDto.setCustomer(LoginServiceImpl.customer);
+
+		List<Ticket> tickets = ticketRepo.getAllTicketsByCustomerId(LoginServiceImpl.customer.getCustomerID());
+
+		tripDto.setTickets(tickets);
+
+		int totalAmount = 0;
+
+		for (Ticket t : tickets) {
+			totalAmount += t.getActivity().getCharge();
+		}
+
+		tripDto.setTotalAmount(totalAmount);
+
+		return tripDto;
+	}
+
 }
