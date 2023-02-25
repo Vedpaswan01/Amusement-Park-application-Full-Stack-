@@ -85,7 +85,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String adminLogin(LoginDTO dto) throws LoginException {
+	public CurrentAdminSession adminLogin(LoginDTO dto) throws LoginException {
 		Admin existingAdmin = adminRepo.findByEmail(dto.getEmail());
 
 		if (existingAdmin == null) {
@@ -106,7 +106,7 @@ public class LoginServiceImpl implements LoginService {
 			
 			admin = existingAdmin;
 			
-			return currentAdminSession.toString();
+			return currentAdminSession;
 
 		} else
 			throw new LoginException("Please Enter a valid password");

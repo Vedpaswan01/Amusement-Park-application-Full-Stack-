@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FunXtreme.exception.ActivityException;
@@ -109,11 +110,11 @@ public class AdminController {
 
 	}
 
-//	@DeleteMapping("/{customerId}")
-//	public ResponseEntity<String> deleteCustomer(@PathVariable("customerId") Integer customerId)
-//			throws CustomerException {
-//
-//		return new ResponseEntity(customerService.deleteCustomer(customerId), HttpStatus.OK);
-//
-//	}
+	@DeleteMapping("/deleteCustomer/{customerId}")
+	public ResponseEntity<Customer> deleteCustomer(@PathVariable("customerId") Integer customerId )
+			throws CustomerException, LoginException {
+
+		return new ResponseEntity(adminService.deleteCustomer(customerId), HttpStatus.OK);
+
+	}
 }
