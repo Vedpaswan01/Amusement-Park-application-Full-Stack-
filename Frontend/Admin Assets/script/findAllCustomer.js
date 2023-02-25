@@ -7,15 +7,14 @@ async function findAllCustomer() {
       headers: {
         "Content-Type": "application/json",
       },
-      // body:JSON.stringify(obj)
+   
     });
     console.log(res);
     if (res.ok) {
       console.log("sucesss");
       let data = await res.json();
 
-      // To get data from response   // user data
-      // let userData=JSON.stringify(data)
+     
       let d = JSON.stringify(data);
 
       console.log(d);
@@ -32,7 +31,7 @@ async function findAllCustomer() {
     }
   } catch (error) {
     console.log(error);
-    // alert("Connection failed");
+   
   }
 }
 
@@ -43,7 +42,7 @@ function appendData(data) {
     
     let tr = document.createElement("tr");
 
-    // creating td to append tr
+   
     let opid = document.createElement("td");
     opid.innerText = el.customerID;
 
@@ -62,10 +61,10 @@ function appendData(data) {
     let pass = document.createElement("td");
     pass.innerText = el.password;
 
-    // appending td to tr
+ 
     tr.append(opid,opratorName,email,mobile,address,pass);
 
-    //appending tr to tbody
+
     document.querySelector("#tbody").append(tr);
 
 

@@ -60,6 +60,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Admin deleteAdmin(Integer adminId) throws AdminException, LoginException {
+		
 		if(!AdminController.isLoggedin) {
 			throw new LoginException("Please login first");
 		}
@@ -169,6 +170,26 @@ public class AdminServiceImpl implements AdminService {
 				  .orElseThrow(() -> new ActivityException("No activity In database"));
 				return act;
 
+	}
+
+	@Override
+	public Customer deleteCustomer(Integer customerID) throws CustomerException,LoginException {
+		// TODO Auto-generated method stub
+
+		if(!AdminController.isLoggedin) {
+			throw new LoginException("Please login first");
+		}
+		Optional<Customer> opt = customerRepo.findById(customerID);
+
+		if (opt.isPresent()) {
+			
+			customerRepo.delete(opt.get());
+			
+			return opt.get();
+		} else {
+
+			throw new CustomerException("Admin  not found with this id:" + customerID);
+		}
 	}
 
 }

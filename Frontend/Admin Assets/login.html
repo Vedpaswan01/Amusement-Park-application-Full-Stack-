@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/adminStyle.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <header>
+      <nav id="main__nav">
+        <a href="../index.html"
+          ><img src="../Assets/home logo.png" alt="website logo" id="logo"
+        /></a>
+      </nav>
+    </header>
+    <main>
+      <!-- partial:index.partial.html -->
+      <div id="login-form-wrap">
+        <h2>Login</h2>
+        <form id="login-form">
+          <p>
+            <input
+              type="email"
+              id="Email"
+              name="Email"
+              placeholder="Email"
+              required
+            /><i class="validation"><span></span><span></span></i>
+          </p>
+          <p>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Password "
+              required
+            /><i class="validation"><span></span><span></span></i>
+          </p>
+        
+
+          <p>
+            <input type="submit" id="login" value="Login" />
+          </p>
+        </form>
+        <div id="create-account-wrap">
+          <button id="submit">Login</button>
+          
+        <p> Not a member? <a href="./signup.html">Create Account</a></p>
+        </div>
+        <!--create-account-wrap-->
+      </div>
+      <!--login-form-wrap-->
+      <!-- partial -->
+    </main>
+
+    <script src="./script/login.js"></script>
+  
+  </body>
+</html>

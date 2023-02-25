@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FunXtreme.exception.LoginException;
+import com.FunXtreme.model.CurrentAdminSession;
 import com.FunXtreme.model.LoginDTO;
 import com.FunXtreme.services.LoginService;
 
@@ -45,14 +46,15 @@ public class LoginController {
 	}
 	
 	@PostMapping("/adminLogin")
-	public ResponseEntity<String> logInAdmin(@RequestBody LoginDTO dto) throws LoginException {
+	public ResponseEntity<CurrentAdminSession> logInAdmin(@RequestBody LoginDTO dto) throws LoginException {
 
-		String result = loginService.adminLogin(dto);
+		CurrentAdminSession result = loginService.adminLogin(dto);
 		if (result != null) {
+			
 			AdminController.isLoggedin = true;
 		}
 
-		return new ResponseEntity<String>(result, HttpStatus.OK);
+		return new ResponseEntity<CurrentAdminSession>(result, HttpStatus.OK);
 
 	}
 

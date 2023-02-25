@@ -1,6 +1,6 @@
 package com.FunXtreme.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +33,7 @@ public class Ticket {
 	@OneToOne
 	private Activity activity;
 
-	private LocalDateTime dateTime;
+	private LocalDate dateTime;
 
 	@JsonIgnore
 	@ManyToOne

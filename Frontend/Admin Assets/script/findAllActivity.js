@@ -3,19 +3,18 @@ async function findAllActivity() {
   try {
     let res = await fetch(`http://localhost:8888/getallactivity`, {
       method: "GET",
-      // body:JSON.stringify(obj),
+
       headers: {
         "Content-Type": "application/json",
       },
-      // body:JSON.stringify(obj)
+     
     });
     console.log(res);
     if (res.ok) {
       console.log("sucesss");
       let data = await res.json();
 
-      // To get data from response   // user data
-      // let userData=JSON.stringify(data)
+      
       let d = JSON.stringify(data);
 
       console.log(d);
@@ -54,10 +53,10 @@ function appendData(data) {
     charge.innerText = ac.charge;
 
 
-    // appending td to tr
+   
     tr.append(activityid,ActivityNAme,charge);
 
-    //appending tr to tbody
+
     document.querySelector("#tbody").append(tr);
 
 

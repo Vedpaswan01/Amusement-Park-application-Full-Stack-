@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,8 +47,8 @@ public class ActivityController {
 
 	}
 
-	@DeleteMapping("/deleteActivity")
-	public ResponseEntity<Activity> deleteActivity(int activityid) throws ActivityException, LoginException {
+	@DeleteMapping("/deleteActivity/{activityid}")
+	public ResponseEntity<Activity> deleteActivity(@PathVariable ("activityid") Integer activityid) throws ActivityException, LoginException {
 
 		Activity a = activityService.deleteActivity(activityid);
 
@@ -55,8 +56,8 @@ public class ActivityController {
 
 	}
 
-	@GetMapping("/viewActivityofCharges")
-	public ResponseEntity<List<Activity>> viewActivityofCharges(float charges) throws ActivityException, LoginException {
+	@GetMapping("/viewActivityofCharges/{charges}")
+	public ResponseEntity<List<Activity>> viewActivityofCharges(@PathVariable ("charges") float charges) throws ActivityException, LoginException {
 
 		List<Activity> aList = activityService.viewActivityofCharges(charges);
 
@@ -64,8 +65,8 @@ public class ActivityController {
 
 	}
 
-	@GetMapping("/countActivityOfCharges")
-	public ResponseEntity<Integer> countActivityofCharges(float charges) throws ActivityException, LoginException {
+	@GetMapping("/countActivityOfCharges/{charges}")
+	public ResponseEntity<Integer> countActivityofCharges( @PathVariable ("charges") float charges) throws ActivityException, LoginException {
 
 		int aCount = activityService.countActivityofCharges(charges);
 

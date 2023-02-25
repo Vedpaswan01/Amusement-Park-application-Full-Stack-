@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/adminStyle.css">
+    <title>Admin SignUp</title>
+    <style>
+        #submit {
+          display: flex;
+          color: white;
+          width: 78%;
+          margin: auto;
+          background-color: blue;
+          margin-top: 30px;
+          height: 20px;
+          justify-content: center;
+          align-items: center;
+          padding: 23px;
+          border: none;
+          cursor: pointer;
+        }
+  
+        #submit:hover {
+          transform: scale(0.9);
+        }
+      </style>
+</head>
+<body>
+    <header>
+        <nav id="main__nav">
+            <a href="../index.html"><img src="../Assets/home logo.png" alt="website logo" id="logo"></a>
+        </nav>
+    </header>
+    <main>
+        <!-- partial:index.partial.html -->
+        <div id="login-form-wrap">
+            <h2>SignUp</h2>
+            <form id="login-form">
+                <p>
+                <input type="text" id="username" name="name" placeholder="Name" required><i class="validation"><span></span><span></span></i>
+                </p>
+
+                <p>
+                    <input type="email" id="email" name="email" placeholder="Email Address" required><i class="validation"><span></span><span></span></i>
+                </p>
+
+                <p>
+                    <input type="password" id="password" name="password" placeholder="Password" required><i class="validation"><span></span><span></span></i>
+                </p>
+
+                 <p>
+                <input type="text" id="mobile" name="mobile" placeholder="Mobile No." required><i class="validation"><span></span><span></span></i>
+                </p>
+
+                <p>
+                    <input type="text" id="Address" name="address" placeholder="Address" required><i class="validation"><span></span><span></span></i>
+                 </p>
+
+                <p>
+                <!-- <input type="submit" id="login" value="SignUp">  -->
+                <button id="submit">SUBMIT</button>
+                </p>
+            </form>
+        </div><!--login-form-wrap-->
+        <!-- partial -->
+    </main>
+    <script src="./script/signup.js"></script>
+</body>
+</html>
