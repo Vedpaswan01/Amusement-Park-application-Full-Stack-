@@ -1,5 +1,6 @@
 package com.FunXtreme.services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,9 +25,9 @@ public interface AdminService {
 
 	public List<Activity> getAllActivities() throws ActivityException, LoginException;
 
-	public List<Activity> getActivitiesDatewise(LocalDateTime date) throws ActivityException, LoginException;
+	public List<Activity> getActivitiesDatewise(LocalDate date) throws ActivityException, LoginException;
 
-	public List<Activity> getActivitiesForDays(Integer customerId, LocalDateTime fromdate, LocalDateTime toDate)
+	public List<Activity> getActivitiesForDays(Integer customerId, LocalDate fromdate, LocalDate toDate)
 			throws ActivityException, LoginException;
 	public List<Customer> getAllCustomer() throws CustomerException, LoginException;
 

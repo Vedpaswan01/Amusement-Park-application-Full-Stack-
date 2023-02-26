@@ -1,5 +1,6 @@
 package com.FunXtreme.services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +113,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Activity> getActivitiesDatewise(LocalDateTime date) throws ActivityException, LoginException {
+	public List<Activity> getActivitiesDatewise(LocalDate date) throws ActivityException, LoginException {
 		if(!AdminController.isLoggedin) {
 			throw new LoginException("Please login first");
 		}
@@ -129,7 +130,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Activity> getActivitiesForDays(Integer customerId, LocalDateTime fromdate, LocalDateTime toDate)
+	public List<Activity> getActivitiesForDays(Integer customerId, LocalDate fromdate, LocalDate toDate)
 			throws ActivityException, LoginException {
 		if(!AdminController.isLoggedin) {
 			throw new LoginException("Please login first");

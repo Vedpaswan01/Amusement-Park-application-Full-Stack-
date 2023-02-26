@@ -68,7 +68,7 @@ public class TicketController {
 		return new ResponseEntity<>(tickets, HttpStatus.OK);
 	}
 	
-	@GetMapping("/calculateBill/{customer_id}")
+	@GetMapping("/calculateBill")
 	public ResponseEntity<TripBookingDTO> getBillHandler()throws LoginException, TicketException, CustomerException {
 
 		TripBookingDTO tripDto = ticketService.calculateBill();

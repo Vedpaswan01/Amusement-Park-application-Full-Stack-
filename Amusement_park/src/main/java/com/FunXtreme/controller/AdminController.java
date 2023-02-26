@@ -1,5 +1,6 @@
 package com.FunXtreme.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.FunXtreme.exception.ActivityException;
@@ -81,22 +81,25 @@ public class AdminController {
 			throws ActivityException, LoginException {
 
 		String dateString = date;
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
-		LocalDateTime parsedDate = LocalDateTime.parse(dateString, formatter);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate date1 = LocalDate.parse(dateString, formatter);
 
-		List<Activity> activities = adminService.getActivitiesDatewise(parsedDate);
+		List<Activity> activities = adminService.getActivitiesDatewise(date1);
 
 		return new ResponseEntity<List<Activity>>(activities, HttpStatus.OK);
 	}
 
 	@GetMapping("/getActivitybyDateAndCustomerid/{cid}/{from_date}/{to_date}")
 	public ResponseEntity<List<Activity>> getAllActivityByDateandcustomeridHandler(
+			
 			@PathVariable("cid") Integer customerId, @PathVariable("from_date") String from_date,
 			@PathVariable("to_date") String to_date) throws ActivityException, LoginException {
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
-		LocalDateTime fromDate = LocalDateTime.parse(to_date, formatter);
-		LocalDateTime toDate = LocalDateTime.parse(to_date, formatter);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		LocalDate fromDate = LocalDate.parse(to_date, formatter);
+		LocalDate toDate = LocalDate.parse(to_date, formatter);
 
 		List<Activity> activities = adminService.getActivitiesForDays(customerId, fromDate, toDate);
 

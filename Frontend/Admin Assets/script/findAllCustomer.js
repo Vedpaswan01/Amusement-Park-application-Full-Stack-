@@ -47,7 +47,7 @@ function appendData(data) {
     opid.innerText = el.customerID;
 
     let opratorName = document.createElement("td");
-    opratorName.innerText = el.user_Name;
+    opratorName.innerText = el.username;
 
     let email = document.createElement("td");
     email.innerText = el.email;

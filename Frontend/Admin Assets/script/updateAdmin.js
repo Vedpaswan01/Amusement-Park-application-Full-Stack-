@@ -9,6 +9,8 @@ let updateOperator = async () => {
     let mobile = document.getElementById("mobile").value
     let address = document.getElementById("Address").value
 
+    localStorage.setItem("email", email);
+
     console.log(name);
 
 

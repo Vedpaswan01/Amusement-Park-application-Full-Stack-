@@ -2,7 +2,7 @@ let removeAdmin = async () => {
 
     let adid = document.querySelector("#adminId").value;
    
-    console.log(opid);
+    console.log(adid);
     let res = await fetch(`http://localhost:8888/deleteadmin/${adid}`, {
       method: "DELETE",
  
@@ -12,6 +12,7 @@ let removeAdmin = async () => {
     })
  
     alert("Admin deleted successfuly with the Id " +adid)
+    window.location.href = "index.html";
     return res;
   
   };

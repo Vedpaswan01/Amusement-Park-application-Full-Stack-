@@ -1,0 +1,36 @@
+ /* Style for the main container */
+ #jsonData {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f1f1f1;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Style for the section titles */
+  h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+
+  /* Style for the customer info section */
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+
+  /* Style for the tickets section */
+  ul li {
+    font-size: 18px;
+  }
+
+  /* Style for the total amount section */
+  p {
+    font-size: 24px;
+    font-weight: bold;
+  }

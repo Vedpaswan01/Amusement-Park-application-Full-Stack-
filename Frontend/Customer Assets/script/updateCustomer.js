@@ -7,6 +7,8 @@ let updateCustomer = async () => {
     let mobile = document.getElementById("mobile").value
     let address = document.getElementById("address").value
 
+    localStorage.setItem("email", email);
+
     console.log(name);
 
     let obj={};
