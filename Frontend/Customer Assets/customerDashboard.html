@@ -5,39 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style/adminStyle.css">
-    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="CustomerStyle.css">
+    <title>Your Dashboard</title>
 </head>
 <body>
     <header>
-        <nav id="main__nav">
+        <nav id="main_nav">
             <a href="../index.html"><img src="../Assets/home logo.png" alt="website logo" id="logo"></a>
-           <button id="logoutBtn">Logout</button>
+            <button id="logoutBtn">Logout</button>
         </nav>
     </header>
 
     <main>
-        <h2 style="margin: auto;">Admin Dashboard</h2>
+        <h2 style="margin: auto;">Your Dashboard</h2>
+        
         <section id="container">
             <div class="dashboard__container container--display">
-                <a href="./updateAdmin.html">Update Admin</a>
-                <a href="./removeAdmin.html">Remove Admin By ID</a>
-                <a href="./getAllcustomer.html">Get All customer</a>
-                <a href="./removeCustomer.html">Remove Customer</a>
-                <a href="./getAllActivity.html">Get All Activity</a>
-                <a href="./getAllActivityCustomerID.html">Get Actyivity by CustomerID</a>
-                <a href="./getAllActivityByDate.html">Get All Activity By Date</a>
-                <a href="./getAllActivityBetweenDates.html">Get All ActivityBetween Dates</a>
-                <a href="./AllActivityOptions.html">More</a>
+                <a href="./updateCustomer.html">Update Account</a>
+                <a href="./deleteCustomer.html">Delete Account</a>
+                <a href="./ViewAllActivity.html">View All Activity</a>
+                <a href="./ticketBooking.html">Book a ticket</a>
+                <a href="./ticketBill.html">Ticket Bill</a>
+                <a href="./updateTicket.html">Update Ticket</a>
+                <a href="./ticketList.html">List of Tickets</a>
+                <a href="./deleteTicket.html">Delete Ticket</a>
             </div>
             
             <div class="userInfo container--display" style="font-weight: 600; font-size: 20px;" id="user-info">
-                <!-- <p>Name: <span>demo text</span></p>
-                <p>User Name: <span>demo text</span></p>
-                <p>Email: <span>demo text</span></p>
-                <p>Password: <span>demo text</span></p>
-                <p>Mobile: <span>demo text</span></p>
-                <p>City: <span>demo text</span></p> -->
+                <!-- <p>Customer ID: <span id="id"></span></p>
+                <p>Name: <span id="name"></span></p>
+                <p>Email: <span id="email"></span></p>
+                <p>Mobile: <span id="mobile"></span></p>
+                <p>Address: <span id="address"></span></p> -->
             </div>
         </section>
     </main>
@@ -47,7 +46,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    <script src="../Admin Assets/script/logout.js"></script>
 </body>
 </html>
+<script src="./script/Logout.js"></script>
 <script src="./script/dashboard.js"></script>

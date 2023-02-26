@@ -49,7 +49,8 @@ async function  insertTkt(obj ,activity_id){
 
 
             console.log(d);
-            alert("Activity Inserted !")
+            alert("Ticket booked successfully!");
+            
             
 
         } else {

@@ -222,3 +222,18 @@ select {
 .issue__list {
   margin: 3em 5em;
 }
+
+#main__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logoutBtn {
+  background-color: #286687;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  width: 10%;
+  height:70%;
+}

@@ -1,10 +1,10 @@
-document.querySelector("form").addEventListener("submit", adminLogin);
+document.querySelector("form").addEventListener("submit", customerLogin);
 
-async function adminLogin(e) {
+async function customerLogin(e) {
   e.preventDefault();
   console.log("working");
 
-  let Email = document.getElementById("Email").value;
+  let Email = document.getElementById("email").value;
   let Password = document.getElementById("password").value;
 
   localStorage.setItem("email", Email);
@@ -21,8 +21,8 @@ async function adminLogin(e) {
     localStorage.setItem('sessionKey', uuid);
     console.log(uuid);
     console.log(logindata)
-    alert("Login successfuly !");
-   window.location.href = "./adminDashboard.html";
+    alert("Login successful!");
+   window.location.href = "./customerDashboard.html";
   } catch (error) {
     console.error(error);
     alert("Error: " + error.message);
@@ -33,7 +33,7 @@ async function adminLogin(e) {
 let userSignUpFun = async (obj) => {
 
   try {
-    const res = await fetch("http://localhost:8888/login/adminLogin", {
+    const res = await fetch("http://localhost:8888/login/customerLogin", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {

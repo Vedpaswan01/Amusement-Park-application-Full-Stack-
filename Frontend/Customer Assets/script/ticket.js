@@ -43,4 +43,4 @@ async function calculateBill() {
 }
 }
 
-window.onload(calculateBill())
+calculateBill();
