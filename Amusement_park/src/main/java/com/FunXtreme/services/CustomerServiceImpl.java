@@ -83,6 +83,12 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return list;
 	}
+	@Override
+	public Customer getCustomerById(String email) throws CustomerException {
+		Customer cus = customerRepo.findByEmail(email);
+		if(cus == null) throw new CustomerException("Invalid email.");
+		return cus;
+	}
 	
 
 }

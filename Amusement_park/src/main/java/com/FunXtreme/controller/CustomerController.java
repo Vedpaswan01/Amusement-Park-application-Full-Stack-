@@ -63,4 +63,9 @@ public class CustomerController {
 	public ResponseEntity<List<Activity>> viewAllActivities() throws ActivityException {
 		return new ResponseEntity<>(customerService.getAllActivities(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/getCustomerByEmail/{email}")
+	public ResponseEntity<Customer> getCustomerByEmail(@Valid @PathVariable("email") String email) throws CustomerException {
+		return new ResponseEntity<>(customerService.getCustomerById(email), HttpStatus.OK);
+	}
 }

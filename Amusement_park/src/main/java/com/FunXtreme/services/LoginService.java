@@ -7,7 +7,7 @@ import com.FunXtreme.model.LoginDTO;
 
 public interface LoginService {
 	public CurrentUserSession customerLogIntoAccount(LoginDTO logdto) throws LoginException;
-	public String customerLogOutOfAccount(String key) throws LoginException;
+	public CurrentUserSession customerLogOutOfAccount(String key) throws LoginException;
 	public CurrentAdminSession adminLogin(LoginDTO dto) throws LoginException;
-	public String adminLogout(String key) throws LoginException;
+	public CurrentAdminSession adminLogout(String key) throws LoginException;
 }

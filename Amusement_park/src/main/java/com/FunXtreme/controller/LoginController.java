@@ -37,8 +37,8 @@ public class LoginController {
 	}
 
 	@PatchMapping("/customerLogout")
-	public String logoutCustomer(@RequestParam(required = false) String key) throws LoginException {
-		String result = loginService.customerLogOutOfAccount(key);
+	public CurrentUserSession logoutCustomer(@RequestParam(required = false) String key) throws LoginException {
+		CurrentUserSession result = loginService.customerLogOutOfAccount(key);
 		if (result != null) {
 			CustomerController.isLoggedin = false;
 		}
@@ -60,9 +60,9 @@ public class LoginController {
 	}
 
 	@PatchMapping("/adminLogout")
-	public String logoutAdmin(@RequestParam(required = false) String key) throws LoginException {
+	public CurrentAdminSession logoutAdmin(@RequestParam(required = false) String key) throws LoginException {
 		
-		String result = loginService.adminLogout(key);
+		CurrentAdminSession result = loginService.adminLogout(key);
 		
 		if (result != null) {
 			AdminController.isLoggedin = false;

@@ -69,7 +69,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String customerLogOutOfAccount(String key) throws LoginException {
+	public CurrentUserSession customerLogOutOfAccount(String key) throws LoginException {
 		CurrentUserSession validCustomerSession = sessionDAO.findByUuid(key);
 
 		if (validCustomerSession == null) {
@@ -81,7 +81,7 @@ public class LoginServiceImpl implements LoginService {
 		
 		customer = null;
 				
-		return "Logged Out !";
+		return validCustomerSession;
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String adminLogout(String key) throws LoginException {
+	public CurrentAdminSession adminLogout(String key) throws LoginException {
 		CurrentAdminSession validAdminSession = adminSessionDAO.findByUuid(key);
 
 		if (validAdminSession == null) {
@@ -126,7 +126,7 @@ public class LoginServiceImpl implements LoginService {
 		
 		admin = null;
 		
-		return "Logged Out !";
+		return validAdminSession;
 	}
 
 }
