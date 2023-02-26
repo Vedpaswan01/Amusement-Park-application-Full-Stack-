@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.FunXtreme.exception.LoginException;
 import com.FunXtreme.model.CurrentAdminSession;
+import com.FunXtreme.model.CurrentUserSession;
 import com.FunXtreme.model.LoginDTO;
 import com.FunXtreme.services.LoginService;
 
@@ -24,14 +25,14 @@ public class LoginController {
 	private LoginService loginService;
 	
 	@PostMapping("/customerLogin")
-	public ResponseEntity<String> logInCustomer(@RequestBody LoginDTO dto) throws LoginException {
+	public ResponseEntity<CurrentUserSession> logInCustomer(@RequestBody LoginDTO dto) throws LoginException {
 
-		String result = loginService.customerLogIntoAccount(dto);
+		CurrentUserSession result = loginService.customerLogIntoAccount(dto);
 		if (result != null) {
 			CustomerController.isLoggedin = true;
 		}
 
-		return new ResponseEntity<String>(result, HttpStatus.OK);
+		return new ResponseEntity<CurrentUserSession>(result, HttpStatus.OK);
 
 	}
 

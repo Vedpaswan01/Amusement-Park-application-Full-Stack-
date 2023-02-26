@@ -38,7 +38,7 @@ public class LoginServiceImpl implements LoginService {
 	public static Customer customer;
 
 	@Override
-	public String customerLogIntoAccount(LoginDTO logdto) throws LoginException {
+	public CurrentUserSession customerLogIntoAccount(LoginDTO logdto) throws LoginException {
 		Customer existingCustomer = customerRepo.findByEmail(logdto.getEmail());
 		if(existingCustomer == null)
 			throw new LoginException("Invalid email");
@@ -61,7 +61,7 @@ public class LoginServiceImpl implements LoginService {
 			
 			customer = existingCustomer;
 
-			return currentUserSession.toString();
+			return currentUserSession;
 		}
 		else
 			throw new LoginException("Please Enter a valid password");

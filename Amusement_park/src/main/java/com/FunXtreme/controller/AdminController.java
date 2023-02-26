@@ -114,7 +114,7 @@ public class AdminController {
 	public ResponseEntity<Customer> deleteCustomer(@PathVariable("customerId") Integer customerId )
 			throws CustomerException, LoginException {
 
-		return new ResponseEntity(adminService.deleteCustomer(customerId), HttpStatus.OK);
+		return new ResponseEntity<>(adminService.deleteCustomer(customerId), HttpStatus.OK);
 
 	}
 }

@@ -1,13 +1,20 @@
 package com.FunXtreme.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.security.auth.login.LoginException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.FunXtreme.controller.AdminController;
+import com.FunXtreme.controller.CustomerController;
 import com.FunXtreme.exception.ActivityException;
+import com.FunXtreme.exception.AdminException;
 import com.FunXtreme.exception.CustomerException;
 import com.FunXtreme.model.Activity;
+import com.FunXtreme.model.Admin;
 import com.FunXtreme.model.CurrentUserSession;
 import com.FunXtreme.model.Customer;
 import com.FunXtreme.repository.ActivityRepository;
@@ -36,35 +43,40 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepo.save(customer); 
 	}
 	@Override
-	public Customer updateCustomer(Customer customer, String key) throws CustomerException {
-		CurrentUserSession loggedInUser = sessionDAO.findByUuid(key);
-
-		if (loggedInUser == null) {
-			throw new CustomerException("Please provide a valid key to update a customer");
+	public Customer updateCustomer(Customer customer) throws CustomerException {
+		if(!CustomerController.isLoggedin) {
+			throw new CustomerException("Please login first");
 		}
-
-		if (customer.getCustomerID() == loggedInUser.getUserId()) {
-			return customerRepo.save(customer);
-		} else
-			throw new CustomerException("Invalid Customer Details, please login first");
+		Optional<Customer> opt = customerRepo.findById(customer.getCustomerID());
+		if (opt.isPresent()) {
+			Customer updateCustomer = customerRepo.save(customer);
+			return updateCustomer;
+		} else {
+			throw new CustomerException(" Customer Does Not Exist ! ");
+		}
 	}
 	@Override
-	public String deleteCustomer(Integer customerID, String key) throws CustomerException {
-		CurrentUserSession userSession = sessionDAO.findByUuid(key);
+	public String deleteCustomer(Integer customerID) throws CustomerException {
 
-		if (userSession == null) {
-			throw new CustomerException("Please provide a valid key delete customer");
+		if(!CustomerController.isLoggedin) {
+			throw new CustomerException("Please login first");
 		}
-		Customer customer = customerRepo.findById(customerID)
-				.orElseThrow(() -> new CustomerException("Cucstomer not found with this Id"));
-			sessionDAO.delete(userSession);
-			customerRepo.delete(customer);
+		Optional<Customer> opt = customerRepo.findById(customerID);
 
-			return "Deletion successful.";
+		if (opt.isPresent()) {
+			customerRepo.delete(opt.get());
+			return "Deletion successful!";
+		} else {
+
+			throw new CustomerException("No customer found with the ID:" + customerID);
+		}
 		
 	}
 	@Override
 	public List<Activity> getAllActivities() throws ActivityException {
+		if(!CustomerController.isLoggedin) {
+			throw new ActivityException("Please login first");
+		}
 		List<Activity> list = activityRepo.findAll();
 		if(list == null) {
 			throw new ActivityException("No activities found.");
