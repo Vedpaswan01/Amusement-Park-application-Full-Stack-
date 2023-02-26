@@ -192,4 +192,11 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
+	@Override
+	public Admin getAdminByEmail(String email) throws AdminException {
+		Admin ad = adminRepo.findByEmail(email);
+		if(ad == null) throw new AdminException("Invalid email.");
+		return ad;
+	}
+
 }

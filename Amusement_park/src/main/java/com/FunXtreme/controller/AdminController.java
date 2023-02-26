@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.security.auth.login.LoginException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -116,5 +117,9 @@ public class AdminController {
 
 		return new ResponseEntity<>(adminService.deleteCustomer(customerId), HttpStatus.OK);
 
+	}
+	@GetMapping("/getAdminByEmail/{email}")
+	public ResponseEntity<Admin> getAdminByEmail(@Valid @PathVariable("email") String email) throws AdminException {
+		return new ResponseEntity<>(adminService.getAdminByEmail(email), HttpStatus.OK);
 	}
 }

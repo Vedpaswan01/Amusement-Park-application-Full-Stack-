@@ -33,5 +33,7 @@ public interface AdminService {
 	public List<Activity> getAllActivity() throws ActivityException, LoginException;
 	
 	public Customer deleteCustomer(Integer customerID) throws CustomerException,LoginException ;
+	
+	public Admin getAdminByEmail(String email) throws AdminException;
 
 }
