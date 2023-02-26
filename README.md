@@ -90,7 +90,7 @@
 <h3 id="modules">Modules</h3>
     <ul>
         <li>Login, Logout Module</li>
-        <li>User Module</li>
+        <li>Customer  Module</li>
         <li>Admin Module</li>
         <li>Activity Module</li>
         <li>Ticket Module</li>
