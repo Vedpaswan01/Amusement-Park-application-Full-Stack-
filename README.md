@@ -153,8 +153,9 @@
 
 <td width="25%" align="center">
 <p dir="auto"><span>Ticket Module Developer</span><br><br></p>
-<a><img src="https://user-images.githubusercontent.com/105913917/221414496-6697fa56-81b9-4487-a6ee-f38ac31a2833.jpg"
+<a><img src="https://user-images.githubusercontent.com/105913917/221414822-a5886916-f7b6-4d7b-ac34-aea796c0081d.png"
  height="100"></a>
+
 
 <p dir="auto"><span>Nitin Potbhare</span><br></p>
 </td>
