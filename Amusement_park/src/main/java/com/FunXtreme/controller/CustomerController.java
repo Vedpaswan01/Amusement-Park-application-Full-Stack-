@@ -1,11 +1,14 @@
 package com.FunXtreme.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,7 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.FunXtreme.exception.ActivityException;
 import com.FunXtreme.exception.CustomerException;
+import com.FunXtreme.exception.LoginException;
+import com.FunXtreme.model.Activity;
 import com.FunXtreme.model.Customer;
 import com.FunXtreme.services.CustomerService;
 
@@ -36,9 +42,9 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/updateCustomerById/{id}")
-	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer, @RequestParam(required = false) String key) throws CustomerException {
+	public ResponseEntity<Customer> updateCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
 		if (isLoggedin) {
-			Customer updatedCustomer = customerService.updateCustomer(customer, key);
+			Customer updatedCustomer = customerService.updateCustomer(customer);
 
 			return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
 
@@ -49,9 +55,12 @@ public class CustomerController {
 	}
 	
 	@DeleteMapping("/deleteCustomerById/{id}")
-	public ResponseEntity<String> deleteCustomer(@Valid @PathVariable("id") Integer id, @RequestParam(required = false) String key) throws CustomerException {
-		return new ResponseEntity<>(customerService.deleteCustomer(id, key), HttpStatus.OK);
+	public ResponseEntity<String> deleteCustomer(@Valid @PathVariable("id") Integer id) throws CustomerException {
+		return new ResponseEntity<>(customerService.deleteCustomer(id), HttpStatus.OK);
 	}
 
-
+	@GetMapping("/viewAllActivity")
+	public ResponseEntity<List<Activity>> viewAllActivities() throws ActivityException {
+		return new ResponseEntity<>(customerService.getAllActivities(), HttpStatus.OK);
+	}
 }
